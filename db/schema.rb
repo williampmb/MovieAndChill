@@ -10,10 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510173104) do
+ActiveRecord::Schema.define(version: 20170510181910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "movie_theaters", force: :cascade do |t|
+    t.integer  "theater_id"
+    t.integer  "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_theaters_on_movie_id", using: :btree
+    t.index ["theater_id"], name: "index_movie_theaters_on_theater_id", using: :btree
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer  "theater_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["theater_id"], name: "index_rooms_on_theater_id", using: :btree
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.integer  "movie_id"
+    t.integer  "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_sessions_on_movie_id", using: :btree
+    t.index ["room_id"], name: "index_sessions_on_room_id", using: :btree
+  end
+
+  create_table "theaters", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.boolean  "status"
+    t.float    "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "session_id"
+    t.index ["session_id"], name: "index_tickets_on_session_id", using: :btree
+    t.index ["user_id"], name: "index_tickets_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name",       limit: 50,                      null: false
@@ -26,4 +72,11 @@ ActiveRecord::Schema.define(version: 20170510173104) do
     t.datetime "updated_at",                                 null: false
   end
 
+  add_foreign_key "movie_theaters", "movies"
+  add_foreign_key "movie_theaters", "theaters"
+  add_foreign_key "rooms", "theaters"
+  add_foreign_key "sessions", "movies"
+  add_foreign_key "sessions", "rooms"
+  add_foreign_key "tickets", "sessions"
+  add_foreign_key "tickets", "users"
 end
