@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510181910) do
+ActiveRecord::Schema.define(version: 20170511023556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,14 +25,18 @@ ActiveRecord::Schema.define(version: 20170510181910) do
   end
 
   create_table "movies", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "title",      limit: 20
+    t.integer  "censorship",             default: 0
+    t.string   "storyline",  limit: 100
   end
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "theater_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "capacity"
     t.index ["theater_id"], name: "index_rooms_on_theater_id", using: :btree
   end
 
@@ -41,13 +45,17 @@ ActiveRecord::Schema.define(version: 20170510181910) do
     t.integer  "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date",       null: false
+    t.float    "price",      null: false
     t.index ["movie_id"], name: "index_sessions_on_movie_id", using: :btree
     t.index ["room_id"], name: "index_sessions_on_room_id", using: :btree
   end
 
   create_table "theaters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "address",    limit: 50
+    t.string   "name",       limit: 30, null: false
   end
 
   create_table "tickets", force: :cascade do |t|
