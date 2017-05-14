@@ -1,6 +1,11 @@
 class TicketsController < ApplicationController
   def index
-  	id_user = 2
-  	@tickets = Ticket.where(user_id: id_user).order(:created_at)
+  	# id_user = 2
+  	if current_user.present?
+  		@tickets = Ticket.where(user_id: current_user.id).order(:created_at)
+  	else
+  		redirect_to root_path
+  	end
+  	
   end
 end

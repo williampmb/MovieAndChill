@@ -1,0 +1,11 @@
+<%= form_tag(user_sessions_path, method: :create) do %>
+
+  Email:
+  <%= text_field :session, :email, placeholder: "Enter your email", required: true, class: "form-control"%>
+  	<br>
+
+  Password:
+  <%= password_field :session, :password, placeholder: "Enter your password", required: true, class: "form-control"  %>
+  <br>
+  <%= submit_tag 'Login', class: "form-control btn-primary" %>
+<% end %>
