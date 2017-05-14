@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 20170511023556) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "theater_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "capacity"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "capacity",   default: 0
     t.index ["theater_id"], name: "index_rooms_on_theater_id", using: :btree
   end
 
