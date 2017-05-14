@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
 		u.string "email", :limit => 50, :null => false
 		u.column "age", :integer, :null => false
 		u.column "role", :string, :default => "customer"
-		u.string "password", :null => false, :limit => 50
+		u.string :password_digest, null: false
 		u.boolean "student", :default => false
 		u.timestamps
     end
