@@ -1,0 +1,48 @@
+
+<br/>
+<br/>
+<br/>
+<br/>
+<% if(params.has_key?(:ticket)) %>
+	
+
+	<table border="1">	
+		<tr>
+			<th colspan="2" ><%= "#{@tic.session.movie.title}" %> </th>
+		</tr>
+		<tr>
+			<td>
+				Date:
+				<%= "#{@tic.session.date.strftime("%m/%d/%Y %H:%M")}" %>
+			</td>
+			<td>
+				Value:
+				<%= "#{@tic.price}"%>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Student:
+				<% if "#{@tic.user.student}" %> 
+					<%= "Yes" %>
+				<% else %>
+					<%= "No" %>
+				<% end %>
+			</td>
+			<td>
+				<%= "Room: #{@tic.session.room.id}"%>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<%= "Address: #{@tic.session.room.theater.address}"%>
+			</td>
+		</tr>
+		
+	</table>
+	<%= link_to "Print",
+		'#',
+		class: "btn btn-primary",
+		onclick: 'window.print();return false;' %>
+
+<% end %>

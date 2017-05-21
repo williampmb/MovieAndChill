@@ -7,4 +7,12 @@ class TicketsController < ApplicationController
   		redirect_to root_path
   	end
   end
+
+  def print
+  	if(params.has_key?(:ticket))
+  		puts "IT HAS TICKET"
+  		@tic = Ticket.find(params[:ticket])
+
+  	end
+  end
 end

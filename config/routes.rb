@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get 'tickets/index'
+  #get 'tickets/index'
   root "user_sessions#login"
+  match ':controller(/:action(/:id))', :via => :get
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
