@@ -9,7 +9,12 @@
   </head>
 
   <body>
-  	<%= current_user.inspect %>
+  	<% if current_user.present? %>
+      <%= "Logged in as: #{current_user.name} (#{current_user.email})" %>
+      <br>
+      <% current_user.tickets.inspect %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

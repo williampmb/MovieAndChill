@@ -1,0 +1,64 @@
+<%# TODO
+	- Show tickets from the user in the http session
+	- Add a layout for each ticket in another page
+		for each ticket: addTicket(tic) return html code based on this ticket 
+ %>
+
+
+<div>
+	<h2> Tickets</h2>
+</div>
+
+<% @tickets.each do |tic| %>
+
+
+
+
+<table border="1">
+	<tr>
+		<th><%= tic.session.movie.title %> </th>
+		<td>
+			Date:
+			<%= tic.session.date.strftime("%m/%d/%Y") %>
+		</td>
+		<td>
+			
+			Status:
+			<% if tic.status %>
+				Paid
+			<% else %>
+				Pending Payment 
+			<% end %>
+		</td>
+
+	</tr>
+	<tr>
+		<td>Local:
+			<%= tic.session.room.theater.name %>
+		</td>
+		<td>
+			Room:
+			<%= tic.session.room.id %>
+				
+		</td>
+		<td>
+			Price:
+			<%= tic.price %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3"><%= tic.session.movie.storyline %> </td>
+			
+	</tr>
+	
+</table>
+
+
+<%= link_to("Go to Print ",
+	{ :controller => 'tickets',
+		:action => 'print',
+		:ticket => tic}) %>
+
+
+
+<% end %>

@@ -1,0 +1,26 @@
+<% @sessions.each do |s| %>
+	<table border="1" class="session-table">
+		<tr>
+			<th><h3><%= s.movie.title %></h3></th>
+		</tr>
+		<tr>
+			<td>
+				Date: 
+				<%= s.date.strftime("%b, %d - %Y") %>
+			</td>
+			
+		</tr>
+		<tr>
+			<td>
+				Price:
+				$<%= s.price %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= link_to "Buy a ticket!", buy_ticket_user_path(current_user.id, session: s.id), method: :post %>
+			</td>
+		</tr>
+
+	</table>
+<% end %>

@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+ .session-table
+ {
+ 	width: 300px;
+ 	margin: 20px;
+ }
