@@ -5,60 +5,61 @@
  %>
 
 
-<div>
+<div class="page-header">
 	<h2> Tickets</h2>
 </div>
 
-<% @tickets.each do |tic| %>
+<div class="container">
 
-
-
-
-<table border="1">
-	<tr>
-		<th><%= tic.session.movie.title %> </th>
-		<td>
-			Date:
-			<%= tic.session.date.strftime("%m/%d/%Y") %>
-		</td>
-		<td>
-			
-			Status:
-			<% if tic.status %>
-				Paid
-			<% else %>
-				Pending Payment 
-			<% end %>
-		</td>
-
-	</tr>
-	<tr>
-		<td>Local:
-			<%= tic.session.room.theater.name %>
-		</td>
-		<td>
-			Room:
-			<%= tic.session.room.id %>
+	<% @tickets.each do |tic| %>
+	<table border="1" class = "table">
+		<tr>
+			<th><%= tic.session.movie.title %> </th>
+			<td>
+				Date:
+				<%= tic.session.date.strftime("%m/%d/%Y") %>
+			</td>
+			<td>
 				
-		</td>
-		<td>
-			Price:
-			<%= tic.price %>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="3"><%= tic.session.movie.storyline %> </td>
-			
-	</tr>
-	
-</table>
+				Status:
+				<% if tic.status %>
+					Paid
+				<% else %>
+					Pending Payment 
+				<% end %>
+			</td>
+
+		</tr>
+		<tr>
+			<td>Local:
+				<%= tic.session.room.theater.name %>
+			</td>
+			<td>
+				Room:
+				<%= tic.session.room.id %>
+					
+			</td>
+			<td>
+				Price:
+				<%= tic.price %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3"><%= tic.session.movie.storyline %> </td>
+				
+		</tr>
+		<!--End of table-->
+	</table>
 
 
-<%= link_to("Go to Print ",
-	{ :controller => 'tickets',
-		:action => 'print',
-		:ticket => tic}) %>
+	<%= link_to("Print",
+		{ :controller => 'tickets',
+			:action => 'print',
+			:ticket => tic},
+			class: "btn btn-primary") %>
 
-
-
-<% end %>
+	<br/>
+	<br/>
+	<% end %>
+	<!--End of container-->
+</div>

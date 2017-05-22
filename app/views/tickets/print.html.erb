@@ -5,17 +5,20 @@
 <br/>
 <% if(params.has_key?(:ticket)) %>
 	
-	<%= render(:partial => "ticket_to_print", :locals => {:tic => "#{@tic}"}) %>
-	
-	<%= link_to "Print",
-		'#',
-		class: "btn btn-primary",
-		onclick: 'window.print();return false;' %>
+	<div class="container">
+		<%= render(:partial => "ticket_to_print", :locals => {:tic => "#{@tic}"}) %>
+		
+		<%= link_to "Print",
+			'#',
+			class: "btn btn-primary",
+			onclick: 'window.print();return false;' %>
 
-	<%= link_to("Send to Email",
-		{ :controller => 'tickets',
-		:action => 'index',
-		:send_email => true,
-		:ticket => "#{@tic.id}"}) %>  
-	
+		<%= link_to("Send to Email",		
+			{ :controller => 'tickets',
+			:action => 'index',
+			:send_email => true,
+			:ticket => "#{@tic.id}"},
+			class: "btn btn-primary") %> 
+			<!-- End of container-->
+	</div>
 <% end %>

@@ -33,6 +33,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'faker'
 
+# Bootstrap gem. bundle install to install it.
+gem 'bootstrap-sass'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
