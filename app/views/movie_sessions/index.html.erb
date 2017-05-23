@@ -22,7 +22,8 @@
 			</tr>
 			<tr>
 				<td>
-					<%= link_to "Buy a ticket!", buy_ticket_user_path(current_user.id, session: s.id), method: :post %>
+					<%= link_to "Buy a ticket!", buy_ticket_user_path(current_user.id, session: s.id), method: :post, data: 
+	    			{ confirm: "Are you sure you want to buy it?" }  %>
 				</td>
 			</tr>
 			<!--End of table-->
