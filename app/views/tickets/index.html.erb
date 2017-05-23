@@ -61,5 +61,14 @@
 	<br/>
 	<br/>
 	<% end %>
+
+	<%= will_paginate @tickets, inner_window: 2 %>
 	<!--End of container-->
+	<br/>
+	<%= link_to("Back", 
+		{:controller => 'movie_sessions',
+			:action => 'index'},
+			class: "btn btn-primary") %>
 </div>
+
+	

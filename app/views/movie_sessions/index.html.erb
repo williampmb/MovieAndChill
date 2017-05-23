@@ -1,6 +1,6 @@
 <!--TODO: add pagination-->
 <div class="container">
-<%= @sessions.size%>
+
 	<% @sessions.each do |s| %>
 
 		<table border="1" class="table">
@@ -29,5 +29,12 @@
 			<!--End of table-->
 		</table>
 	<% end %>
+	<%= will_paginate @sessions, inner_window: 2 %>
 <!-- End of container-->
+<br/>
+<%= link_to("Tickets", 
+		{:controller => 'tickets',
+			:action => 'index'},
+			class: "btn btn-primary") %>
+<br/>		
 </div>

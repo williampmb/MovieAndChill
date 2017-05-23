@@ -3,9 +3,10 @@
 <br/>
 <br/>
 <br/>
+<div class="container">
 <% if(params.has_key?(:ticket)) %>
 	
-	<div class="container">
+	
 		<%= render(:partial => "ticket_to_print", :locals => {:tic => "#{@tic}"}) %>
 		
 		<%= link_to "Print",
@@ -20,5 +21,10 @@
 			:ticket => "#{@tic.id}"},
 			class: "btn btn-primary") %> 
 			<!-- End of container-->
-	</div>
+	
 <% end %>
+<%= link_to("Back", 
+		{:action => 'index'},
+			class: "btn btn-primary") %>
+<br/>
+</div>				
