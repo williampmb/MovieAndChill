@@ -11,34 +11,41 @@ Theater.destroy_all
 Movie.destroy_all
 Session.destroy_all
 Room.destroy_all
+Ticket.destroy_all
+Purchase.destroy_all
 
-
+#Inserting users
 20.times do |n|
+  #Fake data
   name  = Faker::Name.name
   email = "user-#{n+1}@gmail.com"
   password = "password"
   student = Faker::Boolean.boolean
   age = Faker::Number.between(15, 50)
 
-
+  #Insert user
   User.create!(name: name,email: email, age: age,
 				password: password, student: student)
 end
 
+#Inserting Movie
 10.times do |n|
   title  = Faker::Book.title[0...19]
   censorship = Faker::Number.between(12, 18)
   plot = Faker::Lorem.sentence
-
+  #Insert Movie
   Movie.create!(title: title, censorship: censorship, storyline: plot)
 end
 
+#Inserting Theater
 3.times do |n|
 	name = "Rialto #{n}"
 	address = Faker::Address.street_address
+	#Insert Theater
 	Theater.create!(name: name, address: address)
 end
 
+#Creating rooms to theaters
 theaters = Theater.all
 5.times do |r|
 	theaters.each do |t|
@@ -46,6 +53,7 @@ theaters = Theater.all
 	end
 end
 
+#Inserting 3 Sessions for each movie
 movies = Movie.all
 3.times do |session|
 	movies.each do |m|
@@ -57,13 +65,20 @@ movies = Movie.all
 	end
 end
 
+#Inserting Tickets for each User
 users = User.all
 users.each do |u|
 	session = Session.all[rand(0..Session.count)]
-	u.tickets.create!(
+	puts session.price
+	puts session.id
+	Ticket.create!(
 		status: Faker::Boolean.boolean,
 		price: u.student ? session.price/2 : session.price,
-		session_id: session.id
-	)
+		session_id: session.id,
+		purchase_id: Purchase.create!(
+			total: u.student ? session.price/2 : session.price,
+			user_id: u.id
+			).id
+		)
 end
 

@@ -3,12 +3,13 @@
 
 	<% @sessions.each do |s| %>
 
+		
 		<table border="1" class="table">
 			<tr>
-				<th><%= s.movie.title %></th>
+				<th colspan="2"><%= s.movie.title %></th>
 			</tr>
 			<tr>
-				<td>
+				<td colspan="2">
 					Date: 
 					<%= s.date.strftime("%b, %d - %Y") %>
 				</td>
@@ -19,15 +20,21 @@
 					Price:
 					$<%= s.price %>
 				</td>
+				<td>
+					Quantity:
+					<%= text_field :qt,  class: "form-control" %>
+				</td>
 			</tr>
 			<tr>
-				<td>
-					<%= link_to "Buy a ticket!", buy_ticket_user_path(current_user.id, session: s.id), method: :post, data: 
+				 <td colspan="2">
+					<%= link_to "Buy a ticket!", buy_ticket_user_path(current_user.id, session: s.id, quantity: 3 ), method: :post, data: 
 	    			{ confirm: "Are you sure you want to buy it?" }  %>
 				</td>
+
 			</tr>
 			<!--End of table-->
 		</table>
+		
 	<% end %>
 	<%= will_paginate @sessions, inner_window: 2 %>
 <!-- End of container-->
@@ -36,5 +43,6 @@
 		{:controller => 'tickets',
 			:action => 'index'},
 			class: "btn btn-primary") %>
+<br/>	
 <br/>		
 </div>

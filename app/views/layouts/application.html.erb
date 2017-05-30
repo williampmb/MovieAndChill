@@ -12,7 +12,7 @@
   	<% if current_user.present? %>
       <%= "Logged in as: #{current_user.name} (#{current_user.email})" %>
       <br>
-      <% current_user.tickets.inspect %>
+      <% current_user.purchase.inspect %>
     <% end %>
   <div class="page-header"></div>
   <%= yield %>
