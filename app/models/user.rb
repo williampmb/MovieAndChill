@@ -1,4 +1,4 @@
 class User < ApplicationRecord
-	has_many :tickets
+	has_many :purchase
 	has_secure_password
 end
