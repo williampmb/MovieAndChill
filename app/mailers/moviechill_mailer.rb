@@ -8,6 +8,6 @@ class MoviechillMailer < ApplicationMailer
   def ticket_inbox(ticket)
     @tic = ticket
     #ticket.user.email has to be a valid email to receive the ticket!
-    mail to: ticket.user.email, subject: "Eletronic Ticket"
+    mail to: ticket.purchase.user.email, subject: "Eletronic Ticket"
   end
 end

@@ -14,7 +14,8 @@
 		<br><br>
 
 		<b>Choose your payment method</b>
-		<%= select_tag :method, options_for_select(["Credit", "Debit"]) %>
+		<%= select_tag :method, options_for_select(["Credit", "Debit"]), class: "payment_option" %>
+		<% puts :method %>
 		<br><br>
 
 		<div id="installments" style="display:<%= @price >= 30 ? "inline" : "none" %>">
@@ -45,7 +46,7 @@
 </div>
 
 <script type="text/javascript">
-$(":input").inputmask();
+//$(":input").inputmask();
 
 $(function() {
   $(document).on('change', '.quantity', function() {
@@ -59,15 +60,29 @@ $(function() {
   });
 });
 
+$(function() {
+  $(document).on('change', '.payment_option', function() {
+    // this == the element that fired the change event
+    var value = parseFloat("<%= @price %>");
+    var quantity = document.getElementsByClassName("quantity")[0].value;
+    installmentsOptions();
+
+    document.getElementById("total").innerHTML = (value*quantity).toFixed(2).toString();
+  });
+});
+
 function installmentsOptions()
 {
 	var value = parseFloat("<%= @price %>");
     var quantity = document.getElementsByClassName("quantity")[0].value;
-    if (value*quantity >= 30)
-    	document.getElementById("installments").style.display = 'inline';
-    else
-    	document.getElementById("installments").style.display = 'none';
-
+    var payment_option = document.getElementsByClassName("payment_option")[0].value;
+    if(payment_option.localeCompare("Credit") == 0)
+	    if (value*quantity >= 30)
+	    	document.getElementById("installments").style.display = 'inline';
+	    else
+	    	document.getElementById("installments").style.display = 'none';
+	else
+		document.getElementById("installments").style.display = 'none';
 }
 window.onload = installmentsOptions;
 
