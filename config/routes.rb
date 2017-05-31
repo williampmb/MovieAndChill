@@ -7,8 +7,10 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   delete 'sign_out' => 'user_sessions#destroy'
+  get 'users/check_out'
+  get 'users/pay'
 
-  
+  post 'users/pay'
 
   resources :user_sessions
   resources :movie_sessions
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :users do
   	post :buy_ticket, on: :member
+    get :check_out, on: :member
   end
-
 
 end

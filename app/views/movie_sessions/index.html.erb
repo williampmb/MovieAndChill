@@ -18,17 +18,17 @@
 			<tr>
 				<td>
 					Price:
-					$<%= s.price %>
+					<%= number_to_currency(current_user.student ? s.price/2 : s.price) %>
 				</td>
-				<td>
-					Quantity:
-					<%= text_field :qt,  class: "form-control" %>
-				</td>
+
 			</tr>
 			<tr>
 				 <td colspan="2">
-					<%= link_to "Buy a ticket!", buy_ticket_user_path(current_user.id, session: s.id, quantity: 3 ), method: :post, data: 
-	    			{ confirm: "Are you sure you want to buy it?" }  %>
+				 	<% if not (s.movie.censorship > current_user.age) %>
+				 		<%= link_to "Buy a ticket!", users_check_out_path(session_id: s.id) %>
+					<% else %>
+						You have to be this old (<%= s.movie.censorship %>) to ride this ride
+					<% end %>
 				</td>
 
 			</tr>

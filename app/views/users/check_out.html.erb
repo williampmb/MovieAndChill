@@ -1,0 +1,61 @@
+
+
+
+<div class="check-out-container col-md-4 col-md-offset-4">
+	<h2>Check out</h2>
+	<h3><%= @session.movie.title %></h3>
+	<h5><%= @session.date.strftime("%b, %d - %Y") %></h5><br><br>
+	<%= form_tag users_pay_path do%>
+
+		<b>How many tickets do you want?</b>
+
+		<%= select_tag :quantity, options_for_select(1..4), class: "quantity", data: { quantity: 1 } %>
+
+		<br><br>
+
+		<b>Choose your payment method</b>
+		<%= select_tag :method, options_for_select(["Credit", "Debit"]) %>
+		<br><br>
+
+		<div id="installments" style="display:<%= @price >= 30 ? "inline" : "none" %>">
+		<b>You have installments options</b>
+		<%= select_tag :installments, options_for_select(1..2), class: "installments", data: { quantity: 1 } %>
+		<br><br>
+		</div>
+
+		<h4>Your total:
+	 	$<span id="total"><%= current_user.student ? @session.price/2 : @session.price %></span>
+		</h4>
+		
+		<br>
+		<%= hidden_field_tag :session_id, @session.id %>
+		<%= submit_tag "Pay", class: "form-control btn btn-primary", 'data-disable-with' => "Please wait.." %>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+$(function() {
+  $(document).on('change', '.quantity', function() {
+    // this == the element that fired the change event
+    var value = parseFloat("<%= @price %>");
+    var quantity = document.getElementsByClassName("quantity")[0].value;
+
+    installmentsOptions();
+
+    document.getElementById("total").innerHTML = (value*quantity).toFixed(2).toString();
+  });
+});
+
+function installmentsOptions()
+{
+	var value = parseFloat("<%= @price %>");
+    var quantity = document.getElementsByClassName("quantity")[0].value;
+    if (value*quantity >= 30)
+    	document.getElementById("installments").style.display = 'inline';
+    else
+    	document.getElementById("installments").style.display = 'none';
+
+}
+window.onload = installmentsOptions;
+
+</script>

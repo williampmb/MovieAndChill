@@ -6,13 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.destroy_all
-Theater.destroy_all
-Movie.destroy_all
+Ticket.destroy_all
 Session.destroy_all
 Room.destroy_all
-Ticket.destroy_all
+Movie.destroy_all
 Purchase.destroy_all
+User.destroy_all
+Theater.destroy_all
+
+User.create!(name: "Raphael Pinheiro de Souza",
+			age: 17,
+			email: "raphael.pinheiro.souza@gmail.com",
+			password: "xingling",
+			student: true
+	)
 
 #Inserting users
 20.times do |n|
@@ -21,7 +28,7 @@ Purchase.destroy_all
   email = "user-#{n+1}@gmail.com"
   password = "password"
   student = Faker::Boolean.boolean
-  age = Faker::Number.between(15, 50)
+  age = Faker::Number.between(15, 30)
 
   #Insert user
   User.create!(name: name,email: email, age: age,
@@ -31,7 +38,7 @@ end
 #Inserting Movie
 10.times do |n|
   title  = Faker::Book.title[0...19]
-  censorship = Faker::Number.between(12, 18)
+  censorship = Faker::Number.between(12, 21)
   plot = Faker::Lorem.sentence
   #Insert Movie
   Movie.create!(title: title, censorship: censorship, storyline: plot)
@@ -68,17 +75,14 @@ end
 #Inserting Tickets for each User
 users = User.all
 users.each do |u|
-	session = Session.all[rand(0..Session.count)]
-	puts session.price
-	puts session.id
-	Ticket.create!(
-		status: Faker::Boolean.boolean,
-		price: u.student ? session.price/2 : session.price,
-		session_id: session.id,
-		purchase_id: Purchase.create!(
+	session = Session.all[rand(Session.count)]
+	p = Purchase.create!(
 			total: u.student ? session.price/2 : session.price,
 			user_id: u.id
-			).id
+		)
+	p.tickets.create!(status: Faker::Boolean.boolean,
+			price: u.student ? session.price/2 : session.price,
+			session_id: session.id,
 		)
 end
 
