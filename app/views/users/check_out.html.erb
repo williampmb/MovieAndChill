@@ -23,6 +23,17 @@
 		<br><br>
 		</div>
 
+
+		<h4>Credit Card</h4>
+		<b>Number</b>
+		<input type="text" min="1000000000000000" max="9999999999999999" id="sessionNo" name="sessionNum" /><br><br>
+		<b>Expiration date: </b>
+		<%= select_tag :month, options_for_select(1..12) %>/
+		<%= select_tag :year, options_for_select(2017..2025) %><br><br>
+		<b>Security Code:</b>
+		<input type="text" maxlength="3" id="sessionNo" name="sessionNum" /><br><br>
+		<br><br>
+
 		<h4>Your total:
 	 	$<span id="total"><%= current_user.student ? @session.price/2 : @session.price %></span>
 		</h4>
@@ -34,6 +45,8 @@
 </div>
 
 <script type="text/javascript">
+$(":input").inputmask();
+
 $(function() {
   $(document).on('change', '.quantity', function() {
     // this == the element that fired the change event
