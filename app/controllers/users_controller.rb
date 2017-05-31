@@ -16,21 +16,26 @@ class UsersController < ApplicationController
 	end
 
 	def pay
-		session = Session.find(params[:session_id])
-		price = current_user.student ? session.price/2 : session.price
+		@numbTic = Ticket.where(:purchase_id=> Purchase.where(:user_id=>current_user.id)).where(:session_id=>params[:session_id])
+		qt = params[:quantity].to_i
+		totalTicSession = @numbTic.size + qt
 
-		p = Purchase.new(total: (Integer(params[:quantity])*price),
-				user_id: current_user.id,
-				installment_times: Integer(params[:installments]),
-				payment: params[:method]
-			)
-		p.save!
-		Integer(params[:quantity]).times do |t|
-			p.tickets.create!(status:true, price: price, session_id: session.id)
+		if(totalTicSession >4)
+			redirect_to users_check_out_path(session_id: params[:session_id])
+		else
+			session = Session.find(params[:session_id])
+			price = current_user.student ? session.price/2 : session.price
+
+			p = Purchase.new(total: (Integer(params[:quantity])*price),
+					user_id: current_user.id,
+					installment_times: Integer(params[:installments]),
+					payment: params[:method]
+				)
+			p.save!
+			Integer(params[:quantity]).times do |t|
+				p.tickets.create!(status:true, price: price, session_id: session.id)
+			end
+			redirect_to movie_sessions_path
 		end
-		
-
-
-		redirect_to movie_sessions_path
 	end
 end

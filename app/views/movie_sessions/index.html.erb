@@ -1,42 +1,55 @@
 <!--TODO: add pagination-->
 <div class="container">
-
-	<% @sessions.each do |s| %>
-
+	
+	<div class="row">
+		<% @sessions.each do |s| %>
+		<div class="col-lg-4 col-md-6  col-xs-12" >
 		
-		<table border="1" class="table">
-			<tr>
-				<th colspan="2"><%= s.movie.title %></th>
-			</tr>
-			<tr>
-				<td colspan="2">
-					Date: 
-					<%= s.date.strftime("%b, %d - %Y") %>
-				</td>
-				
-			</tr>
-			<tr>
-				<td>
-					Price:
-					<%= number_to_currency(current_user.student ? s.price/2 : s.price) %>
-				</td>
-
-			</tr>
-			<tr>
-				 <td colspan="2">
-				 	<% if not (s.movie.censorship > current_user.age) %>
-				 		<%= link_to "Buy a ticket!", users_check_out_path(session_id: s.id) %>
-					<% else %>
-						You have to be this old (<%= s.movie.censorship %>) to ride this ride
-					<% end %>
-				</td>
-
-			</tr>
-			<!--End of table-->
-		</table>
 		
-	<% end %>
+			<table border="1" class="table">
+				<tr>
+					<th colspan="2"><%= s.movie.title %></th>
+				</tr>
+				<tr>
+					<td colspan="2">
+						Date: 
+						<%= s.date.strftime("%b, %d - %Y") %>
+					</td>
+					
+				</tr>
+				<tr>
+					<td>
+						Price:
+						<%= number_to_currency(current_user.student ? s.price/2 : s.price) %>
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						<%= s.movie.storyline %>
+					</td>
+
+				</tr>
+				<tr>
+					 <td colspan="2">
+					 	<% if not (s.movie.censorship > current_user.age) %>
+					 		<%= link_to "Buy a ticket!", users_check_out_path(session_id: s.id) %>
+						<% else %>
+							You have to be this old (<%= s.movie.censorship %>) to ride this ride
+						<% end %>
+					</td>
+
+				</tr>
+				<!--End of table-->
+			</table>
+		</div>
+		<% end %>
+		<div class="clearfix" ></div>
+
+	</div>
+	
 	<%= will_paginate @sessions, inner_window: 2 %>
+	
 <!-- End of container-->
 <br/>
 <%= link_to("Tickets", 
