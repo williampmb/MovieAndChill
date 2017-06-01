@@ -20,9 +20,13 @@ class UsersController < ApplicationController
 		qt = params[:quantity].to_i
 		totalTicSession = @numbTic.size + qt
 
+		msg = "You already bought " +  @numbTic.size.to_s  + " tickets from this session. Maximum is 4."
+
 		if(totalTicSession >4)
-			redirect_to users_check_out_path(session_id: params[:session_id])
+
+			redirect_to users_check_out_path(session_id: params[:session_id]), info: msg
 		else
+			puts "PASSOUUU"
 			session = Session.find(params[:session_id])
 			price = current_user.student ? session.price/2 : session.price
 

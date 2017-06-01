@@ -5,9 +5,11 @@ class UserSessionsController < ApplicationController
 
 		if user && user.authenticate(session_params[:password])
 		  session[:user_id] = user.id
-		  redirect_to movie_sessions_path, notice: 'Hi, friend!'
+		  #redirect_to movie_sessions_path, notice: 'Hi, friend!'
+		  redirect_to movie_sessions_path
 		else
-		  redirect_to root_path, notice: "No way!"
+		  #redirect_to root_path, notice: "No way!"
+		  redirect_to root_path
 		end
 	end
 
