@@ -10,7 +10,7 @@
 
 		<b>How many tickets do you want?</b>
 
-		<%= select_tag :quantity, options_for_select(1..4), class: "quantity", data: { quantity: 1 } %>
+		<%= select_tag :quantity, options_for_select(1..[@session.room.capacity-@session.tickets.count, @ntAvailable].min), class: "quantity", data: { quantity: 1 } %>
 
 		<br><br>
 

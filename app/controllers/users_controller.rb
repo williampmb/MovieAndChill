@@ -13,33 +13,39 @@ class UsersController < ApplicationController
 	def check_out
 		@session = Session.find(params[:session_id])
 		@price = current_user.student ? @session.price/2 : @session.price
+		@ntAvailable = 4-current_user.tickets.where(session_id: params[:session_id]).count
+
+		if @ntAvailable < 1
+			redirect_to movie_sessions_path, info: "You have already bought the Maximum available tickets."
+		end 
 	end
 
 	def pay
-		@numbTic = Ticket.where(:purchase_id=> Purchase.where(:user_id=>current_user.id)).where(:session_id=>params[:session_id])
+		# @numbTic = Ticket.where(:purchase_id=> Purchase.where(:user_id=>current_user.id)).where(:session_id=>params[:session_id])
+		@numbTic = current_user.tickets.where(session_id: params[:session_id])
 		qt = params[:quantity].to_i
 		totalTicSession = @numbTic.size + qt
 
 		msg = "You already bought " +  @numbTic.size.to_s  + " tickets from this session. Maximum is 4."
 
-		if(totalTicSession >4)
+		if totalTicSession > 4
 
 			redirect_to users_check_out_path(session_id: params[:session_id]), info: msg
 		else
-			puts "PASSOUUU"
 			session = Session.find(params[:session_id])
 			price = current_user.student ? session.price/2 : session.price
 
-			p = Purchase.new(total: (Integer(params[:quantity])*price),
+			p = Purchase.new(total: (qt*price),
 					user_id: current_user.id,
 					installment_times: Integer(params[:installments]),
 					payment: params[:method]
 				)
 			p.save!
-			Integer(params[:quantity]).times do |t|
+			qt.times do |t|
 				p.tickets.create!(status:true, price: price, session_id: session.id)
 			end
-			redirect_to movie_sessions_path
+
+			redirect_to movie_sessions_path, success: "The ticket was successfully bought"
 		end
 	end
 end

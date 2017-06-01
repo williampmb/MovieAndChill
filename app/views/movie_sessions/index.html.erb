@@ -1,4 +1,5 @@
 <!--TODO: add pagination-->
+<%= render 'flash_messages' %>
 <div class="container">
 	
 	<div class="row">
@@ -33,10 +34,15 @@
 				<tr>
 					 <td colspan="2">
 					 	<% if not (s.movie.censorship > current_user.age) %>
-					 		<%= link_to "Buy a ticket!", users_check_out_path(session_id: s.id) %>
+					 		<% if s.tickets.count < s.room.capacity %>
+					 			<%= link_to "Buy a ticket!", users_check_out_path(session_id: s.id) %>
+					 		<%else%>
+					 			No Tickets available :(
+					 		<%end%>
 						<% else %>
 							You have to be this old (<%= s.movie.censorship %>) to ride this ride
-						<% end %>
+						<% end %><br>
+						(<%= s.room.capacity-s.tickets.count %> Available)
 					</td>
 
 				</tr>
