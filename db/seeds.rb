@@ -20,6 +20,8 @@ User.create!(name: "Raphael Pinheiro de Souza",
 			password: "xingling",
 			student: true
 	)
+#Inserting template
+Template.create!(col: 4, row: 5)
 
 #Inserting users
 20.times do |n|
@@ -54,18 +56,24 @@ end
 
 #Creating rooms to theaters
 theaters = Theater.all
+
 5.times do |r|
 	theaters.each do |t|
-		t.rooms.create!(capacity: Faker::Number.between(12, 18)*10)
+		template = Template.where(:id => 1)
+		col = template[0].col
+		row = template[0].row
+		t.rooms.create!(capacity: col*row, template_id: 1)
 	end
 end
 
 #Inserting 3 Sessions for each movie
-movies = Movie.all
+movies = Movie,.all
+rooms = Room.all
+room = rooms[0]
 3.times do |session|
 	movies.each do |m|
 		m.sessions.create!(
-			room_id: 1,
+			room_id: room.id,
 			date: Faker::Date.forward(10),
 			price: Faker::Number.decimal(2)
 		)

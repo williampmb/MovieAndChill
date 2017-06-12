@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170511023556) do
+ActiveRecord::Schema.define(version: 20170611221338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,11 +42,19 @@ ActiveRecord::Schema.define(version: 20170511023556) do
     t.index ["user_id"], name: "index_purchases_on_user_id", using: :btree
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "chair"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.integer  "theater_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "capacity",   default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "capacity",    default: 0
+    t.integer  "template_id"
+    t.index ["template_id"], name: "index_rooms_on_template_id", using: :btree
     t.index ["theater_id"], name: "index_rooms_on_theater_id", using: :btree
   end
 
@@ -61,6 +69,11 @@ ActiveRecord::Schema.define(version: 20170511023556) do
     t.index ["room_id"], name: "index_sessions_on_room_id", using: :btree
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.integer "col"
+    t.integer "row"
+  end
+
   create_table "theaters", force: :cascade do |t|
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
@@ -70,12 +83,14 @@ ActiveRecord::Schema.define(version: 20170511023556) do
 
   create_table "tickets", force: :cascade do |t|
     t.boolean  "status"
-    t.float    "price",       default: 0.0
+    t.float    "price",           default: 0.0
     t.integer  "purchase_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "session_id"
+    t.integer  "reservations_id"
     t.index ["purchase_id"], name: "index_tickets_on_purchase_id", using: :btree
+    t.index ["reservations_id"], name: "index_tickets_on_reservations_id", using: :btree
     t.index ["session_id"], name: "index_tickets_on_session_id", using: :btree
   end
 
@@ -93,9 +108,11 @@ ActiveRecord::Schema.define(version: 20170511023556) do
   add_foreign_key "movie_theaters", "movies"
   add_foreign_key "movie_theaters", "theaters"
   add_foreign_key "purchases", "users"
+  add_foreign_key "rooms", "templates"
   add_foreign_key "rooms", "theaters"
   add_foreign_key "sessions", "movies"
   add_foreign_key "sessions", "rooms"
   add_foreign_key "tickets", "purchases"
+  add_foreign_key "tickets", "reservations", column: "reservations_id"
   add_foreign_key "tickets", "sessions"
 end

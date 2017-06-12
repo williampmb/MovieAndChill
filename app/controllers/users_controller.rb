@@ -15,6 +15,16 @@ class UsersController < ApplicationController
 		@price = current_user.student ? @session.price/2 : @session.price
 		@ntAvailable = 4-current_user.tickets.where(session_id: params[:session_id]).count
 
+		#Number of cols and rows from the template of the room
+		@col = @session.room.template.col
+		@row = @session.room.template.row
+
+		#Fill a status chair array
+		@chairs = Reservation.pluck(:chair)
+		puts "**************************************"
+		puts @chairs
+		puts "**************************************"
+
 		if @ntAvailable < 1
 			redirect_to movie_sessions_path, info: "You have already bought the Maximum available tickets."
 		end 

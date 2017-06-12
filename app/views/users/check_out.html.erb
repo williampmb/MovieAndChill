@@ -6,8 +6,30 @@
 	<h2>Check out</h2>
 	<h3><%= @session.movie.title %></h3>
 	<h5><%= @session.date.strftime("%b, %d - %Y") %></h5><br><br>
-	<%= form_tag users_pay_path do%>
 
+	<%= form_tag users_pay_path do%>
+	<!-- Select chair-->
+	<div class="chair-distribution">
+		<table>
+			<% count = 0 %>
+			<% @row.times do |r| %>
+				<tr>
+					<% @col.times do |c| %>
+						<th>
+							<div id="chair-<%= count %>" class="chair">
+								<img src='/assets/emptychair-32.png' alt='Emptychair'/>
+							</div>
+						</th>
+						<% count = count+1 %>
+					<% end %>
+				</tr>
+			<% end %>
+		</table>
+		
+
+	</div>
+
+	<!-- End Select chair -->
 		<b>How many tickets do you want?</b>
 
 		<%= select_tag :quantity, options_for_select(1..[@session.room.capacity-@session.tickets.count, @ntAvailable].min), class: "quantity", data: { quantity: 1 } %>
@@ -86,5 +108,20 @@ function installmentsOptions()
 		document.getElementById("installments").style.display = 'none';
 }
 window.onload = installmentsOptions;
+
+$(function(){
+	$(document).on('click', '.chair', function(){
+		console.log(this.id);
+		selectChair(this.id)
+	});
+});
+
+function selectChair(chairId)
+{
+	document.getElementById(chairId).innerHTML = "";
+	document.getElementById(chairId).innerHTML = "<img src='/assets/selectedchair-32.png' alt='SelectedChair'/>";
+	//document.getElementById(chairId).innerHTML = "<%= image_tag('selectedchair.png') %>";
+
+}
 
 </script>
