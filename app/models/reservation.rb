@@ -1,3 +1,3 @@
 class Reservation < ApplicationRecord
-	has_one :tickets
+	has_one :ticket
 end

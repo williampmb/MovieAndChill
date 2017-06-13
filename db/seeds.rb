@@ -67,7 +67,7 @@ theaters = Theater.all
 end
 
 #Inserting 3 Sessions for each movie
-movies = Movie,.all
+movies = Movie.all
 rooms = Room.all
 room = rooms[0]
 3.times do |session|
@@ -88,9 +88,13 @@ users.each do |u|
 			total: u.student ? session.price/2 : session.price,
 			user_id: u.id
 		)
+	row = Faker::Number.between(1,4)
+	col = Faker::Number.between(1,4)
+	sit = "#{row}-#{col}"
 	p.tickets.create!(status: Faker::Boolean.boolean,
 			price: u.student ? session.price/2 : session.price,
 			session_id: session.id,
+			chair: sit
 		)
 end
 

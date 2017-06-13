@@ -16,9 +16,18 @@
 				<tr>
 					<% @col.times do |c| %>
 						<th>
-							<div id="chair-<%= count %>" class="chair">
-								<img src='/assets/emptychair-32.png' alt='Emptychair'/>
+						<% chairId = "#{r}-#{c}"  %>
+						<% if "#{@session.reservatedchairs}".include?(chairId) %> 
+							<div id="chair-<%= "#{r}-#{c}" %>" class="reserved-chair">
+								<img src='/assets/reservedchair-32.png' alt='ReservedChair'/>
+							</div>	
+						<% else %>
+							<div id="chair-><%= "#{r}-#{c}" %>" class="chair">
+								<img src='/assets/emptychair-32.png' alt='EmptyChair'/>
 							</div>
+						<% end %>
+
+							
 						</th>
 						<% count = count+1 %>
 					<% end %>
@@ -71,13 +80,18 @@
 <script type="text/javascript">
 //$(":input").inputmask();
 
+var quantity = document.getElementsByClassName("quantity")[0].value;
+var numberChairsSelected = 0;
+var divsSelectedChair = [];
+
 $(function() {
   $(document).on('change', '.quantity', function() {
     // this == the element that fired the change event
     var value = parseFloat("<%= @price %>");
-    var quantity = document.getElementsByClassName("quantity")[0].value;
+    quantity = document.getElementsByClassName("quantity")[0].value;
 
-    installmentsOptions();
+    installmentsOptions(quantity);
+    resetSelectedChairs();
 
     document.getElementById("total").innerHTML = (value*quantity).toFixed(2).toString();
   });
@@ -87,20 +101,19 @@ $(function() {
   $(document).on('change', '.payment_option', function() {
     // this == the element that fired the change event
     var value = parseFloat("<%= @price %>");
-    var quantity = document.getElementsByClassName("quantity")[0].value;
-    installmentsOptions();
+    quantity = document.getElementsByClassName("quantity")[0].value;
+    installmentsOptions(quantity);
 
     document.getElementById("total").innerHTML = (value*quantity).toFixed(2).toString();
   });
 });
 
-function installmentsOptions()
+function installmentsOptions(qt)
 {
 	var value = parseFloat("<%= @price %>");
-    var quantity = document.getElementsByClassName("quantity")[0].value;
     var payment_option = document.getElementsByClassName("payment_option")[0].value;
     if(payment_option.localeCompare("Credit") == 0)
-	    if (value*quantity >= 30)
+	    if (value*qt >= 30)
 	    	document.getElementById("installments").style.display = 'inline';
 	    else
 	    	document.getElementById("installments").style.display = 'none';
@@ -109,18 +122,40 @@ function installmentsOptions()
 }
 window.onload = installmentsOptions;
 
+//Reset all selected chairs
+function resetSelectedChairs()
+{
+
+	divsSelectedChair.forEach(function(div){
+		document.getElementById(div.id).innerHTML = "<img src='/assets/emptychair-32.png' alt='EmptyChair'/>";
+	});
+	divsSelectedChair = [];
+	numberChairsSelected = 0;
+}
+
+//Select chairs
 $(function(){
 	$(document).on('click', '.chair', function(){
-		console.log(this.id);
-		selectChair(this.id)
+		
+		selectChair(this)
 	});
 });
 
-function selectChair(chairId)
+//javascript to select chairs
+function selectChair(chairDiv)
 {
-	document.getElementById(chairId).innerHTML = "";
-	document.getElementById(chairId).innerHTML = "<img src='/assets/selectedchair-32.png' alt='SelectedChair'/>";
-	//document.getElementById(chairId).innerHTML = "<%= image_tag('selectedchair.png') %>";
+
+	var statusChair = $(chairDiv).children("img").attr("alt");
+	if(statusChair.localeCompare("EmptyChair") == 0 && numberChairsSelected < quantity){
+		document.getElementById(chairDiv.id).innerHTML = "<img src='/assets/selectedchair-32.png' alt='SelectedChair'/>";
+		numberChairsSelected++;
+		divsSelectedChair.push(chairDiv);
+	}else if((statusChair.localeCompare("SelectedChair"))== 0 ){
+		numberChairsSelected--;
+		document.getElementById(chairDiv.id).innerHTML = "<img src='/assets/emptychair-32.png' alt='EmptyChair'/>";
+	}else{
+		//TODO - print message for the limit of selected chairs
+	}
 
 }
 

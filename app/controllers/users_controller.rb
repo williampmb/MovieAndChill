@@ -19,11 +19,8 @@ class UsersController < ApplicationController
 		@col = @session.room.template.col
 		@row = @session.room.template.row
 
-		#Fill a status chair array
-		@chairs = Reservation.pluck(:chair)
-		puts "**************************************"
-		puts @chairs
-		puts "**************************************"
+		#Array of chairs that are reservated
+		@chairs = @session.reservatedchairs
 
 		if @ntAvailable < 1
 			redirect_to movie_sessions_path, info: "You have already bought the Maximum available tickets."
@@ -31,6 +28,8 @@ class UsersController < ApplicationController
 	end
 
 	def pay
+		#TODO - SEND THE ARRAY OF CHAIRS BOUGHT
+		#FIXME 1 - ADD THE RESERVATION NUMBER TO THE CHAIR 
 		# @numbTic = Ticket.where(:purchase_id=> Purchase.where(:user_id=>current_user.id)).where(:session_id=>params[:session_id])
 		@numbTic = current_user.tickets.where(session_id: params[:session_id])
 		qt = params[:quantity].to_i
@@ -52,6 +51,7 @@ class UsersController < ApplicationController
 				)
 			p.save!
 			qt.times do |t|
+				#FIXME - 1
 				p.tickets.create!(status:true, price: price, session_id: session.id)
 			end
 
