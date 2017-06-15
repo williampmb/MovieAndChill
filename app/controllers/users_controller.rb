@@ -1,4 +1,17 @@
 class UsersController < ApplicationController
+
+	def register
+		@user = User.new
+	end
+
+	def create
+		@user = User.new(user_params)
+		if @user.save
+			flash[:success] = "User added"
+			redirect_to root_path
+		end
+	end
+
 	def buy_ticket
 		session = Session.find(params[:session])
 		v = params[:quantity]
@@ -48,4 +61,8 @@ class UsersController < ApplicationController
 			redirect_to movie_sessions_path, success: "The ticket was successfully bought"
 		end
 	end
+
+	def user_params
+    	params.require(:user).permit(:name, :email, :age, :student, :password)
+  	end
 end

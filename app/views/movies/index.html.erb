@@ -1,0 +1,17 @@
+<h1>Movies</h1>
+
+<div class="col-md-10 col-md-offset-1">
+	
+	<% @movies.each do |m| %>
+		<%= link_to movie_path(m) do %>
+		<div class="col-md-3 movie-card">
+			<h4><%= m.title %></h4>
+			<hr>
+
+
+			Sessions Available: <%= m.sessions.count %>
+		</div>
+		<% end %>
+	<% end %>
+
+</div>
