@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   get 'users/register'
   get 'users/pay'
   post 'users/pay'
-
+  get 'login' => 'user_sessions#login'
+  get 'ticket/print' => 'tickets#print'
   
+
   resources :movies
   resources :user_sessions
   resources :movie_sessions
@@ -23,5 +25,4 @@ Rails.application.routes.draw do
   	post :buy_ticket, on: :member
     get :check_out, on: :member
   end
-
 end
