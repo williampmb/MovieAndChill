@@ -1,0 +1,21 @@
+<div class="col-md-4 col-md-offset-4">
+	
+	<%= form_for(@user) do |f| %>
+		<%= f.label :name %>
+		<%= f.text_field :name, required: true, class: "form-control" %><br>
+
+		<%= f.label :email %>
+		<%= f.email_field :email, required: true, class: "form-control" %><br>
+
+		<%= f.label :age %>
+		<%= f.number_field :age, required: true, class: "form-control" %><br>
+
+		<%= f.label :student %>
+		<%= f.select(:student, options_for_select([['Student', true], ['Not Student', false]]), {}, {class: "form-control"}) %><br>
+
+		<%= f.label :password %>
+		<%= f.password_field :password, required: true, class: "form-control" %><br>
+
+		<%= f.submit "Register", class: "form-control btn-primary" %>
+	<% end %>
+</div>

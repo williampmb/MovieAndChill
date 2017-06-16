@@ -1,0 +1,67 @@
+<h1><%= @movie.title %></h1>
+All sessions of this movie
+<!--TODO: add pagination-->
+<%= render 'flash_messages' %>
+<div class="container">
+	
+	<div class="row">
+		<% @movie.sessions.each do |s| %>
+		<div class="col-lg-4 col-md-6  col-xs-12" >
+		
+		
+			<table border="1" class="table">
+				<tr>
+					<th colspan="2"><%= s.movie.title %></th>
+				</tr>
+				<tr>
+					<td colspan="2">
+						Date: 
+						<%= s.date.strftime("%b, %d - %Y") %>
+					</td>
+					
+				</tr>
+				<tr>
+					<td>
+						Price:
+						<%= number_to_currency(current_user.student ? s.price/2 : s.price) %>
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						<%= s.movie.storyline %>
+					</td>
+
+				</tr>
+				<tr>
+					 <td colspan="2">
+					 	<% if not (s.movie.censorship > current_user.age) %>
+					 		<% if s.tickets.count < s.room.capacity %>
+					 			<%= link_to "Buy a ticket!", users_check_out_path(session_id: s.id) %>
+					 		<%else%>
+					 			No Tickets available :(
+					 		<%end%>
+						<% else %>
+							You have to be this old (<%= s.movie.censorship %>) to ride this ride
+						<% end %><br>
+						(<%= s.room.capacity-s.tickets.count %> Available)
+					</td>
+
+				</tr>
+				<!--End of table-->
+			</table>
+		</div>
+		<% end %>
+		<div class="clearfix" ></div>
+
+	</div>
+
+<!-- End of container-->
+<br/>
+<%= link_to("Tickets", 
+		{:controller => 'tickets',
+			:action => 'index'},
+			class: "btn btn-primary") %>
+<br/>	
+<br/>		
+</div>
