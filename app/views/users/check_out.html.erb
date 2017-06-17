@@ -69,6 +69,7 @@
 		</h4>
 
 		<br>
+		
 		<%= hidden_field_tag :session_id, @session.id %>
 		<%= submit_tag "Pay", class: "form-control btn btn-primary", 'data-disable-with' => "Please wait.." %>
 	<% end %>
@@ -80,14 +81,17 @@
 var quantity = document.getElementsByClassName("quantity")[0].value;
 var numberChairsSelected = 0;
 var divsSelectedChair = [];
+var addIdChair;
 
 $(function() {
   $(document).on('change', '.quantity', function() {
     // this == the element that fired the change event
+
     var value = parseFloat("<%= @price %>");
     quantity = document.getElementsByClassName("quantity")[0].value;
 
     installmentsOptions(quantity);
+    resetArrayChairsId();
     resetSelectedChairs();
 
     document.getElementById("total").innerHTML = (value*quantity).toFixed(2).toString();
@@ -147,14 +151,52 @@ function selectChair(chairDiv)
 		document.getElementById(chairDiv.id).innerHTML = "<img src='/assets/selectedchair-32.png' alt='SelectedChair'/>";
 		numberChairsSelected++;
 		divsSelectedChair.push(chairDiv);
+		addChairIdIntoController(chairDiv.id);
 	}else if((statusChair.localeCompare("SelectedChair"))== 0 ){
 		numberChairsSelected--;
 		document.getElementById(chairDiv.id).innerHTML = "<img src='/assets/emptychair-32.png' alt='EmptyChair'/>";
+		removeChairIdFromController(chairDiv.id);
 	}else{
 		//TODO - print message for the limit of selected chairs
 	}
 
 }
+
+//Rest Array of Chairs's Id in controller.
+function resetArrayChairsId()
+{
+	$.ajax({
+    	url: "resetArrayChairsId",
+    	type: "get"
+    });
+}
+
+//Add the id chair into Controller
+function addChairIdIntoController(divIdChair)
+{
+	console.log(divIdChair);
+	var strSit = divIdChair.substring(7);
+	$.ajax({
+    	url: "addSelectedChair",
+    	type: "post",
+    	data: {sit: strSit }
+    });
+}
+
+//Remover the id chair from controller
+function removeChairIdFromController(divIdChair)
+{
+	console.log(divIdChair);
+	var strSit = divIdChair.substring(7);
+	$.ajax({
+    	url: "removeSelectedChair",
+    	type: "post",
+    	data: {sit: strSit }
+    });
+}
+
+
+
 
 </script>
 

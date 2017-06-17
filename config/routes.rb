@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   delete 'sign_out' => 'user_sessions#destroy'
   get 'users/check_out'
   get 'users/register'
+  get 'users/resetArrayChairsId'
   get 'users/pay'
   post 'users/pay'
+  post 'users/addSelectedChair'
+  post 'users/removeSelectedChair'
   get 'login' => 'user_sessions#login'
   get 'ticket/print' => 'tickets#print'
   

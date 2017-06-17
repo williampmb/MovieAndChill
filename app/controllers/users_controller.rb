@@ -1,4 +1,20 @@
 class UsersController < ApplicationController
+	@@arrayChairsNameSit = []
+	
+	def resetArrayChairsId
+		@@arrayChairsNameSit = []
+		printObject(@@arrayChairsNameSit)
+	end
+
+	def addSelectedChair
+		@@arrayChairsNameSit << params[:sit]
+		printObject(@@arrayChairsNameSit)
+	end
+
+	def removeSelectedChair
+		@@arrayChairsNameSit.delete(params[:sit])
+		printObject(@@arrayChairsNameSit)
+	end
 
 	def register
 		@user = User.new
@@ -44,6 +60,8 @@ class UsersController < ApplicationController
 		#TODO - SEND THE ARRAY OF CHAIRS BOUGHT
 		#FIXME 1 - ADD THE RESERVATION NUMBER TO THE CHAIR 
 		# @numbTic = Ticket.where(:purchase_id=> Purchase.where(:user_id=>current_user.id)).where(:session_id=>params[:session_id])
+		
+
 		@numbTic = current_user.tickets.where(session_id: params[:session_id])
 		qt = params[:quantity].to_i
 		totalTicSession = @numbTic.size + qt
@@ -64,15 +82,30 @@ class UsersController < ApplicationController
 				)
 			p.save!
 			qt.times do |t|
-				#FIXME - 1
-				p.tickets.create!(status:true, price: price, session_id: session.id)
+				if @@arrayChairsNameSit.empty?
+					p.tickets.create!(status:true, price: price, session_id: session.id)
+				else
+					sit = @@arrayChairsNameSit.delete_at(0)
+					p.tickets.create!(status:true, price: price, session_id: session.id, chair: sit)
+				end	
 			end
 
 			redirect_to movie_sessions_path, success: "The ticket was successfully bought"
 		end
+		
 	end
 
 	def user_params
     	params.require(:user).permit(:name, :email, :age, :student, :password)
   	end
+
+  	private
+
+  		def printObject(object)
+  			puts ""
+  			puts "****** CURRENT OBJECT ******" 
+			puts object
+			puts "****** END OBJECT ******"
+			puts ""
+		end 
 end
