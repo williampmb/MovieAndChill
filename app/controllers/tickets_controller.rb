@@ -16,7 +16,6 @@ class TicketsController < ApplicationController
   def print
   	if(params.has_key?(:ticket))
   		@tic = Ticket.find(params[:ticket])
-  		puts "IT HAS TICKET"
   	end
   end
 end

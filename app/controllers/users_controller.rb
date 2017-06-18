@@ -58,7 +58,6 @@ class UsersController < ApplicationController
 
 	def pay
 		#TODO - SEND THE ARRAY OF CHAIRS BOUGHT
-		#FIXME 1 - ADD THE RESERVATION NUMBER TO THE CHAIR 
 		# @numbTic = Ticket.where(:purchase_id=> Purchase.where(:user_id=>current_user.id)).where(:session_id=>params[:session_id])
 		
 
