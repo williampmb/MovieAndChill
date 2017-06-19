@@ -69,6 +69,14 @@
 				{:controller => 'tickets',
 					:action => 'index'},
 					class: "btn btn-primary") %>
+			<% if current_user.role.eql?"admin" %>
+				<%= link_to("Rank", 
+					{:controller => 'tickets',
+						:action => 'rank'},
+						class: "btn btn-primary") %>
+			<% end %>
+			
 		</div>
+		
 	</div>
 </div>

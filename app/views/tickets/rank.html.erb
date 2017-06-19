@@ -1,0 +1,39 @@
+
+<div class="container">
+<div class="row">
+	<div class="text-center"><h3>Movie Rank</h3></div>
+</div>
+</br>
+<div class="row">
+<div class="col-lg-10 col-md-10 col-md-offset-1 col-lg-offset-1">
+
+<table class="table table-striped">
+	<% rankAt = 1 %>
+		<tr>
+			<th class="text-center">Rank</th>
+			<th class="text-center">Movie</th>
+			<th class="text-center">Movieocohlics</th>
+		</tr>
+	<% if @rank == nil %>
+		<tr>
+			<td colspan="3">No records</td>
+		</tr>
+	<% else %>
+	<% @rank.each do |rank| %>
+		<tr>
+			<td class="text-center"><%= rankAt %></td>
+			<td><%= rank["title"] %></td>
+			<td class="text-center"><%= rank["number"] %> </td>
+		</tr>
+		<% rankAt = rankAt +1 %>
+	<% end %>
+	<% end %>
+</table>
+
+</div>
+<div class="col-lg-4 col-md-4  col-xs-12 col-lg-offset-1 col-md-offset-1">
+<%= link_to("Back", 
+	{:controller => 'movie_sessions',
+		:action => 'index'},
+		class: "btn btn-primary") %>
+</div>			

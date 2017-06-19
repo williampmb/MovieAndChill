@@ -3,17 +3,17 @@ class UsersController < ApplicationController
 	
 	def resetArrayChairsId
 		@@arrayChairsNameSit = []
-		printObject(@@arrayChairsNameSit)
+		#printObject(@@arrayChairsNameSit)
 	end
 
 	def addSelectedChair
 		@@arrayChairsNameSit << params[:sit]
-		printObject(@@arrayChairsNameSit)
+		#printObject(@@arrayChairsNameSit)
 	end
 
 	def removeSelectedChair
 		@@arrayChairsNameSit.delete(params[:sit])
-		printObject(@@arrayChairsNameSit)
+		#printObject(@@arrayChairsNameSit)
 	end
 
 	def register
@@ -57,10 +57,6 @@ class UsersController < ApplicationController
 	end
 
 	def pay
-		#TODO - SEND THE ARRAY OF CHAIRS BOUGHT
-		# @numbTic = Ticket.where(:purchase_id=> Purchase.where(:user_id=>current_user.id)).where(:session_id=>params[:session_id])
-		
-
 		@numbTic = current_user.tickets.where(session_id: params[:session_id])
 		qt = params[:quantity].to_i
 		totalTicSession = @numbTic.size + qt

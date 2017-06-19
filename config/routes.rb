@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post 'users/removeSelectedChair'
   get 'login' => 'user_sessions#login'
   get 'ticket/print' => 'tickets#print'
+  get 'tickets/rank'
   
 
   resources :movies
