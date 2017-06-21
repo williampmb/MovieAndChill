@@ -39,6 +39,6 @@ end
   end
 
   def room_params
-    params.require(:room).permit(:theater,:capacity,:placement)
+    params.require(:room).permit(:theater_id,:template_id)
   end
 end

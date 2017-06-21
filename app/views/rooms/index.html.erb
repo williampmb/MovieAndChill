@@ -4,15 +4,15 @@
       <td>Theater</td>
       <td>Room</td>
       </tr>
-    <%@room.each do |theater| %>
+    <%@rooms.each do |room| %>
         <tr>
-        <td><%= theater.name %></td>
-        <td> <%= theater.address %> </td>
-         <td><%=link_to "Edit", edit_theater_path(theater),class: "btn btn-info btn-sm" %></td>
-         <td> <%=link_to "Destroy",theater_path(theater),method: :delete,class: "btn btn-info btn-sm"%> </td>
+        <td><%= room.theater.name %></td>
+        <td>Columns:<%= room.template.col%> Rows:<%=room.template.row %> Total:<%=room.template.row * room.template.col%></td>
+         <td><%=link_to "Edit", edit_room_path(room),class: "btn btn-info btn-sm" %></td>
+         <td> <%=link_to "Destroy",room_path(room),method: :delete,class: "btn btn-info btn-sm"%> </td>
         </tr><br>
     <% end %>
     </table>
 
-    <%=link_to "Create", new_theater_url,class: "btn btn-info btn-sm" %>
+    <%=link_to "Create", new_room_url,class: "btn btn-info btn-sm" %>
 </div>

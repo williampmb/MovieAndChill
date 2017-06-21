@@ -3,10 +3,10 @@
     <%= form_for(@room) do |r| %>
         
         
-        <%= r.collection_select :theater, Theater.all,:id,:name,include_blank: false, class: "form-control"%><br><br>
+        <%= r.collection_select :theater_id, Theater.all,:id,:name,include_blank: false, class: "form-control"%><br><br>
 
         <%= r.label :size%>
-        <%= r.collection_select :template,::Template.all,:id,:print_template,class: "form-control",prompt: true%>
+        <%= r.collection_select :template_id, ::Template.all,:id,:print_template,class: "form-control"%>
 
         <%= r.submit "Register", class: "form-control btn-primary" %>
     <% end %>

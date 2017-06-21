@@ -2,7 +2,6 @@ class Template < ApplicationRecord
 	has_many :rooms
 
 	def print_template
-		teste= :rooms
-		"#{teste} #{row}"
+		"Columns: #{col} / Rows: #{row} / Total: #{row*col}"
 	end
 end
