@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   #get 'tickets/index'
   root "movies#index"
   # match ':controller(/:action(/:id))', :via => :get
@@ -18,7 +19,8 @@ Rails.application.routes.draw do
   get 'ticket/print' => 'tickets#print'
   get 'tickets/rank'
   
-
+  resources :rooms
+  resources :theaters
   resources :movies
   resources :user_sessions
   resources :movie_sessions

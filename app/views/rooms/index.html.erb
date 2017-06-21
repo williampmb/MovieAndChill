@@ -1,0 +1,18 @@
+<div class="col-md-4 col-md-offset-4">
+    <table>
+      <tr>
+      <td>Theater</td>
+      <td>Room</td>
+      </tr>
+    <%@room.each do |theater| %>
+        <tr>
+        <td><%= theater.name %></td>
+        <td> <%= theater.address %> </td>
+         <td><%=link_to "Edit", edit_theater_path(theater),class: "btn btn-info btn-sm" %></td>
+         <td> <%=link_to "Destroy",theater_path(theater),method: :delete,class: "btn btn-info btn-sm"%> </td>
+        </tr><br>
+    <% end %>
+    </table>
+
+    <%=link_to "Create", new_theater_url,class: "btn btn-info btn-sm" %>
+</div>
