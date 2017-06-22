@@ -1,11 +1,11 @@
-<h1>Movies</h1>
+<h1 align="center">Movies</h1>
 
 <div class="col-md-10 col-md-offset-1">
-	
+<%=link_to "Create", new_movie_url,class: "btn btn-info btn-sm" %><br>
 	<% @movies.each do |m| %>
 		<%= link_to movie_path(m) do %>
 		<div class="col-md-3 movie-card">
-			<h4><%= m.title %></h4>
+			<h4><%= m.title %> <br> <%=link_to "Edit", edit_movie_path(m),class: "btn btn-info btn-sm" %> <%=link_to "Delete",movie_path(m),method: :delete,class: "btn btn-info btn-sm"%></h4>
 			<hr>
 
 

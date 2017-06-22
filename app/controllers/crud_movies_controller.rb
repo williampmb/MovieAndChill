@@ -1,27 +1,22 @@
-class MoviesController < ApplicationController
+class CrudMoviesController < ApplicationController
+  def index
+    @crud_movies = Movie.all
+  end
 
-    def show
-        @movie = Movie.find(params[:id])
-    end
-
-    def index
-        @movies = Movie.all
-    end
-
-    def new
-        @movie =Movie.new
+  def new
+    @crud_movie =Movie.new
   end
 
   def create
-    @movie =Movie.new(movie_params)
-    if @movie.save
+    @crud_movie =Movie.new(movie_params)
+    if @crud_movie.save
       flash[:success]="Movie created"
       redirect_to root_path
     end
   end
 
   def update
-    @movie =Movie.find(params[:id])
+    @crud_movie =Movie.find(params[:id])
 
     if @movie.update_attributes(movie_params)
       flash[:success]="Movie edited"
@@ -36,6 +31,10 @@ end
     @movie = Movie.find(params[:id])
     @movie.destroy
     redirect_to movies_path
+  end
+
+  def show
+    @movie = Movie.find(params[:id])
   end
 
   def movie_params

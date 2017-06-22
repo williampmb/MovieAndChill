@@ -1,0 +1,15 @@
+<div class="col-md-4 col-md-offset-4">
+
+    <%= form_for(@movie) do |m| %>
+        <%= m.label :title %>
+        <%= m.text_field :title, required: true, class: "form-control" %><br>
+
+        <%= m.label :censorship%>
+        <%= m.select :censorship, [10,12,14,16,18], required:true%><br><br>
+
+        <%= m.label :storyline %>
+        <%= m.text_field :storyline, required: true, class: "form-control" %><br>
+
+        <%= m.submit "Edit", class: "form-control btn-primary btn-lg" %>
+    <% end %>
+</div>

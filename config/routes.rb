@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'crud_movies/index'
+
+  get 'crud_movies/new'
+
+  get 'crud_movies/create'
+
+  get 'crud_movies/update'
+
+  get 'crud_movies/edit'
+
+  get 'crud_movies/destroy'
+
+  get 'crud_movies/show'
+
   #get 'tickets/index'
   root "movies#index"
   # match ':controller(/:action(/:id))', :via => :get
