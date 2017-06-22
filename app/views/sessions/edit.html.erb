@@ -1,0 +1,21 @@
+<div class="col-md-4 col-md-offset-4">
+
+    <h1 align="center">Session Edit</h1>
+    <%= form_for(@session) do |s| %>
+
+    <%=s.label :room_id%>
+    <%= s.collection_select :room_id, Room.all.where(:theater_id => @session.room.theater_id),:id,:id,include_blank: false, required: true,class: "form-control"%><br><br>
+
+    <%=s.label :movie_id%>
+    <%=s.collection_select :movie_id, Movie.all, :id, :title,include_blank: false, required: true, class: "form-control" %> <br><br>
+
+    <%=s.label :price %>
+    <%=s.number_field :price, required: true%><br><br>
+
+    <%=s.label :date %>
+    <%=s.datetime_field :date, required: true %>
+
+    <%= s.submit "Register", class: "form-control btn-primary" %>
+
+    <% end %>
+</div>

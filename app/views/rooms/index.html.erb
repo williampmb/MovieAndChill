@@ -1,8 +1,10 @@
 <div class="col-md-4 col-md-offset-4">
+    <h1 align="center">Rooms List</h1>
+    <%=link_to "Create", new_room_url,class: "btn btn-info btn-sm" %>
     <table>
       <tr>
-      <td>Theater</td>
-      <td>Room</td>
+      <td align="center">Theater</td>
+      <td align="center">Room</td>
       </tr>
     <%@rooms.each do |room| %>
         <tr>
@@ -10,9 +12,14 @@
         <td>Columns:<%= room.template.col%> Rows:<%=room.template.row %> Total:<%=room.template.row * room.template.col%></td>
          <td><%=link_to "Edit", edit_room_path(room),class: "btn btn-info btn-sm" %></td>
          <td> <%=link_to "Destroy",room_path(room),method: :delete,class: "btn btn-info btn-sm"%> </td>
-        </tr><br>
+        </tr>
     <% end %>
     </table>
-
-    <%=link_to "Create", new_room_url,class: "btn btn-info btn-sm" %>
 </div>
+
+<style type="text/css">
+  td
+  {
+    padding: 10px;
+  }
+</style>
