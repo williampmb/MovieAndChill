@@ -1,17 +1,19 @@
-<div class="col-md-4 col-md-offset-4">
+<div class="col-md-6 col-md-offset-3">
     <h1 align="center">Rooms List</h1>
-    <%=link_to "Create", new_room_url,class: "btn btn-info btn-sm" %>
-    <table>
+    <%=link_to "Create", new_room_url,class: "btn btn-success btn-sm" %>
+    <table class="table table-striped">
       <tr>
       <td align="center">Theater</td>
       <td align="center">Room</td>
+      <td></td>
+      <td></td>
       </tr>
     <%@rooms.each do |room| %>
         <tr>
         <td><%= room.theater.name %></td>
         <td>Columns:<%= room.template.col%> Rows:<%=room.template.row %> Total:<%=room.template.row * room.template.col%></td>
          <td><%=link_to "Edit", edit_room_path(room),class: "btn btn-info btn-sm" %></td>
-         <td> <%=link_to "Destroy",room_path(room),method: :delete,class: "btn btn-info btn-sm"%> </td>
+         <td> <%=link_to "Destroy",room_path(room),method: :delete,class: "btn btn-danger btn-sm"%> </td>
         </tr>
     <% end %>
     </table>

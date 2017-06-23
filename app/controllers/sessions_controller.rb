@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :needs_clearance, :only => [:index, :edit, :new]
+
   def index
     @sessions = Session.all
   end
@@ -35,6 +37,12 @@ end
 
   def show
     @session = Session.find(params[:id])
+  end
+
+  def needs_clearance
+    if current_user.present? and not current_user.is_admin
+      redirect_to root_path, info: "You have no clearance"
+    end
   end
 
   def session_params

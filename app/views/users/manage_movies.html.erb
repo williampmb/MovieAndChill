@@ -1,0 +1,25 @@
+<div class="col-md-6 col-md-offset-3">
+		<h3 align="center">Movies (<%= @movies.count %>)</h3>
+		<%= link_to 'New Movie', new_movie_path, class: "btn btn-success btn-sm" %><br>
+		
+
+	<table class="table table-striped">
+	<tr>
+		<td align="center">Title</td>
+		<td align="center">Censorship</td>
+		<td align="center">Sessions</td>
+		<td></td>
+		<td></td>
+	</tr>
+
+	<% @movies.each do |m| %>
+		<tr>
+			<td><%= m.title %></td>
+			<td align="center"><%= m.censorship %></td>
+			<td align="center"><%= m.sessions.count %></td>
+
+			<td><%=link_to "Edit", edit_movie_path(m),class: "btn btn-info btn-sm" %></td> 
+			<td><%=link_to "Delete",movie_path(m),method: :delete, data: {confirm: "Are you sure?"},class: "btn btn-danger btn-sm"%></td>
+		</tr>
+	<% end %>
+</div>

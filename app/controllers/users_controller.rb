@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
+	before_action :needs_clearance, :only => [:dashboard, :manage_movies]
 	@@arrayChairsNameSit = []
+
+	def needs_clearance
+		if current_user.present? and not current_user.is_admin
+		  redirect_to root_path, info: "You have no clearance"
+		end
+	end
 	
 	def resetArrayChairsId
 		@@arrayChairsNameSit = []
@@ -14,6 +21,17 @@ class UsersController < ApplicationController
 	def removeSelectedChair
 		@@arrayChairsNameSit.delete(params[:sit])
 		#printObject(@@arrayChairsNameSit)
+	end
+
+	def dashboard
+		@movies = Movie.all
+		@sessions = Room.all
+		@theaters = Theater.all
+		@rooms = Room.all
+	end
+
+	def manage_movies
+		@movies = Movie.all
 	end
 
 	def register
@@ -94,6 +112,8 @@ class UsersController < ApplicationController
     	params.require(:user).permit(:name, :email, :age, :student, :password)
   	end
 
+  	
+
   	private
 
   		def printObject(object)
@@ -103,4 +123,6 @@ class UsersController < ApplicationController
 			puts "****** END OBJECT ******"
 			puts ""
 		end 
+
+		
 end

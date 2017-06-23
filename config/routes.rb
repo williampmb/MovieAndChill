@@ -11,9 +11,13 @@ Rails.application.routes.draw do
   get 'users/register'
   get 'users/resetArrayChairsId'
   get 'users/pay'
+  get 'users/manage_movies' => 'users#manage_movies'
+
   post 'users/pay'
   post 'users/addSelectedChair'
   post 'users/removeSelectedChair'
+
+  get 'dashboard' => 'users#dashboard'
   get 'login' => 'user_sessions#login'
   get 'ticket/print' => 'tickets#print'
   get 'tickets/rank'

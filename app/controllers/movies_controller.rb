@@ -1,15 +1,16 @@
 class MoviesController < ApplicationController
+  before_action :needs_clearance, :only => [:edit, :new]
 
-    def show
-        @movie = Movie.find(params[:id])
-    end
+  def show
+      @movie = Movie.find(params[:id])
+  end
 
-    def index
-        @movies = Movie.all
-    end
+  def index
+      @movies = Movie.all
+  end
 
-    def new
-        @movie =Movie.new
+  def new
+      @movie = Movie.new
   end
 
   def create
@@ -36,6 +37,12 @@ end
     @movie = Movie.find(params[:id])
     @movie.destroy
     redirect_to movies_path
+  end
+
+  def needs_clearance
+    if current_user.present? and not current_user.is_admin
+      redirect_to root_path, info: "You have no clearance"
+    end
   end
 
   def movie_params
