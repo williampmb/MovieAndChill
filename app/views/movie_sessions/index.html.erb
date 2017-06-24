@@ -32,6 +32,12 @@
 
 				</tr>
 				<tr>
+					<td>
+						<%= image_tag s.movie.image.url(:thumb) %>
+					</td>
+
+				</tr>
+				<tr>
 					 <td colspan="2">
 					 	<% if not (s.movie.censorship > current_user.age) %>
 					 		<% if s.tickets.count < s.room.capacity %>

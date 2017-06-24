@@ -46,7 +46,7 @@ end
   end
 
   def movie_params
-    params.require(:movie).permit(:title, :censorship, :storyline)
+    params.require(:movie).permit(:title, :censorship, :storyline, :image, :category)
   end
 
 end
