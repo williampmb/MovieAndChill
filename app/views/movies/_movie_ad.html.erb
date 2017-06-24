@@ -1,0 +1,30 @@
+
+
+<div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+	<%= link_to movie_path(m) do %>
+			<h4 align="center"><%= m.title %> </h4>
+	<% end %>
+	<div class="media">
+		<div class="media-left media-middle">
+			<%= image_tag m.image.url(:thumb) %> 
+		</div>
+		<div class="media-body">
+			<%= m.storyline %>
+		</div>
+	</div>
+
+
+	<small>Sessions: <%= m.sessions.count %></small>
+
+	<% if current_user != nil %>
+		<% if  current_user.role.eql?"admin"%>
+			<br> <%=link_to "Edit",
+			edit_movie_path(m),
+			class: "btn btn-info btn-sm" %>
+			<%=link_to "Delete",
+			movie_path(m),
+			method: :delete,
+			class: "btn btn-info btn-sm"%>
+		<% end %>
+	<% end %> 
+</div>
