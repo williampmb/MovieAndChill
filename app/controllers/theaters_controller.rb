@@ -45,6 +45,7 @@ end
     end
   end
 
+
   def theater_params
     params.require(:theater).permit(:name, :address)
   end

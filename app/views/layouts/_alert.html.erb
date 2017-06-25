@@ -1,0 +1,38 @@
+<!-- Flash -->
+<% if flash[:success] or flash[:error] or flash[:info] or flash[:danger] %>
+  <div id="message">
+    <% if flash[:success] %>
+      <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= flash[:success]%>
+      </div>
+    <%end%>
+
+    <% if flash[:info] %>
+      <div class="alert alert-info">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= flash[:info]%>
+      </div>
+    <%end%>
+    
+    <% if flash[:error] %>
+      <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= flash[:error]%><br>
+      </div>
+    <%end%>
+
+    <% if flash[:danger] %>
+      <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= flash[:danger]%><br>
+      </div>
+    <%end%>
+
+  </div>
+<% end %>
+<script>
+  alertMessage();
+</script>
+<!-- Flash End -->
+<br>
