@@ -15,10 +15,14 @@
         <%= link_to "Admin Dashboard", dashboard_path %>
       <% end %>
       <% current_user.purchases.inspect %>
+    <% else %>
+      <%= link_to "Login", login_path, class: "btn btn-success btn-sm" %>
     <% end %>
 
   <hr>
   <%= yield %>
+
+  <%= render "layouts/alert" %>
 
   </body>
 </html>

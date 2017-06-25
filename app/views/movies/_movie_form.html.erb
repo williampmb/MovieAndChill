@@ -15,4 +15,5 @@
         <%= m.file_field :image, required: true%><br>
 
         <%= m.submit "Edit", class: "form-control btn-primary btn-lg" %>
+        <%= link_to "Cancel", users_manage_movies_path, class: "btn btn-danger" %>
     <% end %>

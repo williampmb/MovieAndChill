@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
       flash[:success]="Session edited"
       redirect_to sessions_path
     end
-end
+  end
 
   def edit
     @session = Session.find (params[:id])
