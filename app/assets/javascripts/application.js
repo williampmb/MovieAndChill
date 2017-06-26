@@ -19,7 +19,11 @@
 function alertMessage()
 {
 	$( ".alert-danger" ).hide();
+	$( ".alert-info" ).hide();
 	$( ".alert-success" ).hide();
-  	$( ".alert-danger" ).fadeIn(500).delay( 3000 ).fadeOut( 500 );
-  	$( ".alert-success" ).fadeIn(500).delay( 3000 ).fadeOut( 500 );
+	$( ".alert-warning" ).hide();
+  	$( ".alert-danger" ).fadeIn(500).delay( 2000 ).fadeOut( 500 );
+  	$( ".alert-success" ).fadeIn(500).delay( 2000 ).fadeOut( 500 );
+  	$( ".alert-info" ).fadeIn(500).delay( 2000 ).fadeOut( 500 );
+  	$( ".alert-warning" ).fadeIn(500).delay( 2000 ).fadeOut( 500 );
 }

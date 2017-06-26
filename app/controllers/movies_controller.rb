@@ -36,8 +36,13 @@ end
 
   def destroy
     @movie = Movie.find(params[:id])
-    @movie.destroy
+    if @movie.sessions.count == 0
+      @movie.destroy
+    else
+      flash[:error]="This movie has available session. It cannot be deleted"
+    end
     redirect_to movies_path
+
   end
 
   def needs_clearance
