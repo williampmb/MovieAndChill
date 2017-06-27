@@ -45,14 +45,6 @@ end
 
   end
 
-  def needs_login
-    if not current_user.present?
-      flash[:info] = "You have to be logged in"
-      redirect_to login_path
-    end
-  end
-
-
   def movie_params
     params.require(:movie).permit(:title, :censorship, :storyline, :image, :category)
   end

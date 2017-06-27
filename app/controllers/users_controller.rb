@@ -1,14 +1,8 @@
 class UsersController < ApplicationController
 	before_action :needs_clearance, :only => [:dashboard, :manage_movies]
-	before_action :needs_login, :only => [:pay]
+	before_action :needs_login, :only => [:check_out]
 
 	@@arrayChairsNameSit = []
-
-	def needs_login
-		if current_user.present?
-		  redirect_to root_path, info: "You have to be logged in"
-		end
-	end
 	
 	def resetArrayChairsId
 		@@arrayChairsNameSit = []
