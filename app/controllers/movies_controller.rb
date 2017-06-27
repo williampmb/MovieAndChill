@@ -45,12 +45,6 @@ end
 
   end
 
-  def needs_clearance
-    if current_user.present? and not current_user.is_admin
-      redirect_to root_path, info: "You have no clearance"
-    end
-  end
-
   def needs_login
     if not current_user.present?
       flash[:info] = "You have to be logged in"

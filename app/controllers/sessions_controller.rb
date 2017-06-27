@@ -39,12 +39,6 @@ class SessionsController < ApplicationController
     @session = Session.find(params[:id])
   end
 
-  def needs_clearance
-    if current_user.present? and not current_user.is_admin
-      redirect_to root_path, info: "You have no clearance"
-    end
-  end
-
   def session_params
     params.require(:session).permit(:room_id,:movie_id,:date,:price)
   end

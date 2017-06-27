@@ -39,13 +39,6 @@ end
     @theater = Theater.find(params[:id])
   end
 
-  def needs_clearance
-    if current_user.present? and not current_user.is_admin
-      redirect_to root_path, info: "You have no clearance"
-    end
-  end
-
-
   def theater_params
     params.require(:theater).permit(:name, :address)
   end

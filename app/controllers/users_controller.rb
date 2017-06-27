@@ -1,14 +1,8 @@
 class UsersController < ApplicationController
 	before_action :needs_clearance, :only => [:dashboard, :manage_movies]
-	before_action :needs_clearance, :only => [:pay]
+	before_action :needs_login, :only => [:pay]
 
 	@@arrayChairsNameSit = []
-
-	def needs_clearance
-		if current_user.present? and not current_user.is_admin
-		  redirect_to root_path, info: "You have no clearance"
-		end
-	end
 
 	def needs_login
 		if current_user.present?

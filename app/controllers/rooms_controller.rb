@@ -41,12 +41,6 @@ end
     @room = Room.find(params[:id])
   end
 
-  def needs_clearance
-    if current_user.present? and not current_user.is_admin
-      redirect_to root_path, info: "You have no clearance"
-    end
-  end
-
   def room_params
     params.require(:room).permit(:theater_id,:template_id)
   end
