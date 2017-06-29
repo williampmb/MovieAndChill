@@ -1,0 +1,31 @@
+<div class="col-md-6 col-md-offset-3">
+		<h3 align="center">Users (<%= @users.count %>)</h3>
+		<%= link_to "Back to Dashboard", dashboard_path, class: "btn btn-info btn-sm" %>
+		<br>
+		
+
+	<table class="table table-striped">
+	<tr>
+		<td align="center">Name</td>
+		<td align="center">Email</td>
+		<td align="center">Age</td>
+		<td align="center">Student</td>
+		<td align="center">Role</td>
+		<td></td>
+		<td></td>
+	</tr>
+
+	<% @users.each do |u| %>
+		<tr>
+			
+			<td><%= u.name %></td>
+			<td align="center"><%= u.email %></td>
+			<td align="center"><%= u.age %></td>
+			<td align="center"><%= u.student %></td>
+			<td align="center"><%= u.role %></td>
+
+			<td><%=link_to_if u != current_user, "Edit", edit_user_path(u),class: "btn btn-info btn-sm" %></td> 
+			<td><%=link_to_if u != current_user, "Delete",user_path(u),method: :delete, data: {confirm: "Are you sure?"},class: "btn btn-danger btn-sm"%></td>
+		</tr>
+	<% end %>
+</div>
