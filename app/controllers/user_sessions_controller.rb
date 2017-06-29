@@ -5,7 +5,7 @@ class UserSessionsController < ApplicationController
 
 		if user && user.authenticate(session_params[:password])
 		  session[:user_id] = user.id
-		  redirect_to movie_sessions_path, info: 'Welcome!'
+		  redirect_to root_path, info: 'Welcome!'
 		else
 		  redirect_to login_path, danger: "Wrong email or password!"
 		end
@@ -18,7 +18,7 @@ class UserSessionsController < ApplicationController
 
   def login
   	if current_user.present?
-  		redirect_to movie_sessions_path
+  		redirect_to root_path
   	end
   end
 

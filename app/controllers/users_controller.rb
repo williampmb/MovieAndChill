@@ -122,7 +122,7 @@ class UsersController < ApplicationController
 				end	
 			end
 
-			redirect_to movie_sessions_path, success: "The ticket was successfully bought"
+			redirect_to root_path, success: "The ticket was successfully bought"
 		end
 		
 	end
